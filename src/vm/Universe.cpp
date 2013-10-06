@@ -77,6 +77,9 @@ pVMClass systemClass;
 pVMClass blockClass;
 pVMClass doubleClass;
 
+pVMSymbol symbolIfTrue;
+pVMSymbol symbolIfFalse;
+
 std::map<std::string, pVMSymbol> symbolsMap;
 
 //Singleton accessor
@@ -246,6 +249,9 @@ void Universe::initialize(long _argc, char** _argv) {
     this->SetGlobal(SymbolForChars("system"), systemObject);
     this->SetGlobal(SymbolForChars("System"), systemClass);
     this->SetGlobal(SymbolForChars("Block"), blockClass);
+
+    symbolIfTrue  = SymbolForChars("ifTrue:");
+    symbolIfFalse = SymbolForChars("ifFalse:");
 
     pVMMethod bootstrapMethod = NewMethod(SymbolForChars("bootstrap"), 1, 0);
     bootstrapMethod->SetBytecode(0, BC_HALT);

@@ -84,6 +84,9 @@ extern pVMClass systemClass;
 extern pVMClass blockClass;
 extern pVMClass doubleClass;
 
+extern pVMSymbol symbolIfTrue;
+extern pVMSymbol symbolIfFalse;
+
 using namespace std;
 class Universe {
 public:

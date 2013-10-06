@@ -244,6 +244,21 @@ void Interpreter::doPushField(long bytecodeIndex) {
 
 void Interpreter::doPushBlock(long bytecodeIndex) {
     pVMMethod method = _METHOD;
+    
+    // Short cut the negative case of #ifTrue: and #ifFalse:
+    uint8_t nextBytecode = method->GetBytecode(bytecodeIndex + 1);
+    if (nextBytecode == BC_SEND) {
+        if (_FRAME->GetStackElement(0) == falseObject &&
+            method->GetConstant(nextBytecode) == symbolIfTrue) {
+            _FRAME->Push(nilObject);
+            return;
+        } else if (_FRAME->GetStackElement(0) == trueObject &&
+                   method->GetConstant(nextBytecode) == symbolIfFalse) {
+            _FRAME->Push(nilObject);
+            return;
+        }
+    }
+
 
     pVMMethod blockMethod = static_cast<pVMMethod>(method->GetConstant(bytecodeIndex));
 
