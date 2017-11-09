@@ -75,7 +75,7 @@ void Lexer::skipWhiteSpace(void) {
     while (isspace(_BC)) {
         bufp++;
         while (EOB) {
-            if (fillBuffer() == -1) {
+            if (fillBuffer() == (size_t) -1) {
                 return;
             }
         }
@@ -88,7 +88,7 @@ void Lexer::skipComment(void) {
         do {
             bufp++;
             while (EOB) {
-                if (fillBuffer() == -1) {
+                if (fillBuffer() == (size_t) -1) {
                     return;
                 }
             }
@@ -165,7 +165,7 @@ void Lexer::lexString() {
     while (_BC != '\'') {
         lexStringChar();
         while (EOB) {
-            if (fillBuffer() == -1) {
+            if (fillBuffer() == (size_t) -1) {
                 return;
             }
         }
@@ -271,7 +271,7 @@ Symbol Lexer::GetSym(void) {
 
 bool Lexer::hasMoreInput() {
     while (EOB) {
-        if (fillBuffer() == -1) {
+        if (fillBuffer() == (size_t) -1) {
             return false;
         }
     }

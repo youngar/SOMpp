@@ -202,13 +202,13 @@ void VMFrame::PrintStack() const {
                     " MaxStack:" + to_string(GetMethod()->GetMaximumNumberOfStackElements()) +
                     "\n");
 
-    for (size_t i = 0; i < GetMethod()->GetNumberOfArguments(); i++) {
+    for (long i = 0; i < GetMethod()->GetNumberOfArguments(); i++) {
         Universe::Print("   arg " + to_string(i) + ": ");
         print_oop(arguments[i]);
     }
     
     size_t local_offset = 0;
-    for (size_t i = 0; i < GetMethod()->GetNumberOfLocals(); i++) {
+    for (long i = 0; i < GetMethod()->GetNumberOfLocals(); i++) {
         Universe::Print("   loc " + to_string(i) + ": ");
         print_oop(locals[i]);
         local_offset++;
@@ -266,7 +266,6 @@ vm_oop_t VMFrame::GetArgument(long index, long contextLevel) {
 }
 
 void VMFrame::SetArgument(long index, long contextLevel, vm_oop_t value) {
-    VMFrame* context = GetContextLevel(contextLevel);
     SetArgument(index, value);
 }
 

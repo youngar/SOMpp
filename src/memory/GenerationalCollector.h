@@ -10,8 +10,7 @@ public:
     GenerationalCollector(GenerationalHeap* heap);
     void Collect();
 private:
-    intptr_t majorCollectionThreshold;
-    size_t matureObjectsSize;
+    size_t majorCollectionThreshold;
     void MajorCollection();
     void MinorCollection();
 };

@@ -211,8 +211,8 @@ long Universe::getClassPathExt(vector<StdString>& tokens,
         const StdString& arg) const {
 #define EXT_TOKENS 2
     long result = ERR_SUCCESS;
-    long fpIndex = arg.find_last_of(fileSeparator);
-    long ssepIndex = arg.find(".som");
+    unsigned long fpIndex = arg.find_last_of(fileSeparator);
+    unsigned long  ssepIndex = arg.find(".som");
 
     if (fpIndex == StdString::npos) { //no new path
         //different from CSOM (see also HandleArguments):

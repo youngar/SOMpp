@@ -61,7 +61,7 @@ VMMethod* MethodGenerationContext::Assemble() {
     meth->SetMaximumNumberOfStackElements(ComputeStackDepth());
 
     // copy literals into the method
-    for (int i = 0; i < numLiterals; i++) {
+    for (size_t  i = 0; i < numLiterals; i++) {
         vm_oop_t l = literals.Get(i);
         meth->SetIndexableField(i, l);
     }
@@ -93,8 +93,8 @@ uint8_t MethodGenerationContext::GetFieldIndex(VMSymbol* field) {
 
 bool MethodGenerationContext::FindVar(const StdString& var, size_t* index,
         int* context, bool* isArgument) {
-    if ((*index = locals.IndexOf(var)) == -1) {
-        if ((*index = arguments.IndexOf(var)) == -1) {
+    if ((*index = locals.IndexOf(var)) == (size_t) -1) {
+        if ((*index = arguments.IndexOf(var)) == (size_t) -1) {
             if (!outerGenc)
                 return false;
             else {

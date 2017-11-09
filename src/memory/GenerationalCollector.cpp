@@ -18,7 +18,6 @@
 
 GenerationalCollector::GenerationalCollector(GenerationalHeap* heap) : GarbageCollector(heap) {
     majorCollectionThreshold = INITIAL_MAJOR_COLLECTION_THRESHOLD;
-    matureObjectsSize = 0;
 }
 
 static gc_oop_t mark_object(gc_oop_t oop) {

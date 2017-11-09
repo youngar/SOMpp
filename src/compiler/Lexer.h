@@ -68,6 +68,7 @@ typedef enum {
     KeywordSequence,
     OperatorSequence
 } Symbol;
+
 static const char* symnames[] = { "NONE", "Integer", "Not", "And", "Or", "Star",
         "Div", "Mod", "Plus", "Minus", "Equal", "More", "Less", "Comma", "At",
         "Per", "NewBlock", "EndBlock", "Colon", "Period", "Exit", "Assign",
