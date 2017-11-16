@@ -36,7 +36,12 @@
 //needed to instanciate the Routine object for the evaluation routine
 #include "../primitivesCore/Routine.h"
 
+const int VMEvaluationPrimitive::VMEvaluationPrimitiveNumberOfFields = 1;
+
 VMEvaluationPrimitive::VMEvaluationPrimitive(long argc) : VMPrimitive(computeSignatureString(argc)) {
+    objectSize += VMEvaluationPrimitiveNumberOfFields * sizeof(VMObject*);
+    assert(objectSize == sizeof(*this));
+
     SetRoutine(new EvaluationRoutine(this));
     SetEmpty(false);
     store_ptr(numberOfArguments, NEW_INT(argc));

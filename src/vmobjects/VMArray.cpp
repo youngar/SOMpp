@@ -24,6 +24,8 @@
  THE SOFTWARE.
  */
 
+#include <cassert>
+
 #include "VMArray.h"
 #include "VMClass.h"
 
@@ -31,8 +33,11 @@
 
 const long VMArray::VMArrayNumberOfFields = 0;
 
-VMArray::VMArray(long size, long nof) :
-        VMObject(nof + VMArrayNumberOfFields) {
+VMArray::VMArray(long size) :
+        VMObject(VMArrayNumberOfFields) {
+    assert(objectSize == sizeof(*this));
+    objectSize += size * sizeof(VMObject*);
+
     // initialize fields with nilObject
     // SetIndexableField is not used to prevent the write barrier to be called
     // too often.

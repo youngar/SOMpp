@@ -22,8 +22,6 @@ AbstractVMObject* MarkSweepHeap::AllocateObject(size_t size) {
     }
     spcAlloc += size;
     memset((void*) newObject, 0, size);
-    //AbstractObjects (Integer,...) have no Size field anymore -> set within VMObject's new operator
-    //newObject->SetObjectSize(size);
     allocatedObjects->push_back(newObject);
     //let's see if we have to trigger the GC
     if (spcAlloc >= collectionLimit)

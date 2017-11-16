@@ -41,6 +41,7 @@ public:
     int64_t GetNumberOfArguments() { return INT_VAL(load_ptr(numberOfArguments)); };
     
 private:
+    static const int VMEvaluationPrimitiveNumberOfFields;
     static VMSymbol* computeSignatureString(long argc);
     void evaluationRoutine(Interpreter*, VMFrame*);
     gc_oop_t numberOfArguments;

@@ -425,7 +425,7 @@ Universe::~Universe() {
     }
 
     static void obtain_vtables_of_known_classes(VMSymbol* className) {
-        VMArray* arr  = new (GetHeap<HEAP_CLS>()) VMArray(0, 0);
+        VMArray* arr  = new (GetHeap<HEAP_CLS>()) VMArray(0);
         vt_array      = *(void**) arr;
         
         VMBlock* blck = new (GetHeap<HEAP_CLS>()) VMBlock();
@@ -692,7 +692,6 @@ void Universe::LoadSystemClass(VMClass* systemClass) {
 
 VMArray* Universe::NewArray(long size) const {
     long additionalBytes = size * sizeof(VMObject*);
-    
     bool outsideNursery;
     
 #if GC_TYPE == GENERATIONAL
@@ -759,13 +758,9 @@ VMBlock* Universe::NewBlock(VMMethod* method, VMFrame* context, long arguments) 
 
 VMClass* Universe::NewClass(VMClass* classOfClass) const {
     long numFields = classOfClass->GetNumberOfInstanceFields();
-    VMClass* result;
     long additionalBytes = numFields * sizeof(VMObject*);
-    if (numFields) result = new (GetHeap<HEAP_CLS>(), additionalBytes) VMClass(numFields);
-    else result = new (GetHeap<HEAP_CLS>()) VMClass;
-
+    VMClass *result = new (GetHeap<HEAP_CLS>(), additionalBytes) VMClass(numFields);
     result->SetClass(classOfClass);
-
     LOG_ALLOCATION("VMClass", result->GetObjectSize());
     return result;
 }
@@ -807,7 +802,6 @@ VMObject* Universe::NewInstance(VMClass* classOfInstance) const {
     long additionalBytes = numOfFields * sizeof(VMObject*);
     VMObject* result = new (GetHeap<HEAP_CLS>(), additionalBytes) VMObject(numOfFields);
     result->SetClass(classOfInstance);
-
     LOG_ALLOCATION(classOfInstance->GetName()->GetStdString(), result->GetObjectSize());
     return result;
 }

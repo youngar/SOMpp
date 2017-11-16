@@ -24,6 +24,8 @@
  THE SOFTWARE.
  */
 
+#include <cassert>
+
 #include "VMFrame.h"
 #include "VMMethod.h"
 #include "VMObject.h"
@@ -98,6 +100,9 @@ const long VMFrame::VMFrameNumberOfFields = 0;
 VMFrame::VMFrame(long size, long nof) :
         VMObject(nof + VMFrameNumberOfFields), previousFrame(nullptr), context(
                 nullptr), method(nullptr) {
+
+    objectSize = (size + nof + VMFrameNumberOfFields) * sizeof(VMObject*) + sizeof(*this);
+
     clazz = nullptr; // Not a proper class anymore
     bytecodeIndex = 0;
     arguments = (gc_oop_t*)&(stack_ptr)+1;

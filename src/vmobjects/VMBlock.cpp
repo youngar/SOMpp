@@ -24,6 +24,8 @@
  THE SOFTWARE.
  */
 
+#include <cassert>
+
 #include "VMBlock.h"
 #include "VMMethod.h"
 #include "VMFrame.h"
@@ -35,6 +37,7 @@ const int VMBlock::VMBlockNumberOfFields = 2;
 
 VMBlock::VMBlock() :
         VMObject(VMBlockNumberOfFields), blockMethod(), context() {
+    assert(objectSize == sizeof(*this));
 }
 
 void VMBlock::SetMethod(VMMethod* bMethod) {

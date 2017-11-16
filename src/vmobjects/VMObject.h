@@ -63,7 +63,7 @@ class VMObject: public AbstractVMObject {
 
 public:
     typedef GCObject Stored;
-    
+
     VMObject(long numberOfFields = 0);
 
     virtual int64_t GetHash() { return hash; }
@@ -96,8 +96,6 @@ public:
     void* operator new(size_t numBytes, HEAP_CLS* heap, unsigned long additionalBytes = 0 ALLOC_OUTSIDE_NURSERY_DECL) {
         void* mem = AbstractVMObject::operator new(numBytes, heap, additionalBytes ALLOC_OUTSIDE_NURSERY(outsideNursery));
         assert(mem != INVALID_VM_POINTER);
-        
-        ((VMObject*) mem)->objectSize = numBytes + PADDED_SIZE(additionalBytes);
         return mem;
     }
 
@@ -106,7 +104,7 @@ protected:
 
     // VMObject essentials
     int64_t hash;
-    size_t objectSize;     // set by the heap at allocation time
+    size_t objectSize;
     long   numberOfFields;
 
     GCClass* clazz;

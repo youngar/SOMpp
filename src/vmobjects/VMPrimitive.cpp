@@ -43,6 +43,8 @@ VMPrimitive* VMPrimitive::GetEmptyPrimitive(VMSymbol* sig, bool classSide) {
 const int VMPrimitive::VMPrimitiveNumberOfFields = 2;
 
 VMPrimitive::VMPrimitive(VMSymbol* signature) : VMInvokable(VMPrimitiveNumberOfFields) {
+    assert(objectSize == sizeof(*this));
+
     //the only class that explicitly does this.
     SetClass(load_ptr(primitiveClass));
     SetSignature(signature);

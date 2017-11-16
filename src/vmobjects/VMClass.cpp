@@ -36,9 +36,11 @@
 
 const long VMClass::VMClassNumberOfFields = 4;
 
-VMClass::VMClass() :
-        VMObject(VMClassNumberOfFields), superClass(nullptr), name(nullptr), instanceFields(
-                nullptr), instanceInvokables(nullptr) {
+VMClass::VMClass(long numberOfFields) :
+        VMObject(numberOfFields + VMClassNumberOfFields),
+        superClass(nullptr), name(nullptr),
+        instanceFields(nullptr), instanceInvokables(nullptr) {
+    assert(objectSize == (sizeof(*this) + numberOfFields * sizeof(VMObject*)));
 }
 
 VMClass* VMClass::Clone() const {
@@ -47,10 +49,6 @@ VMClass* VMClass::Clone() const {
             SHIFTED_PTR(this,sizeof(VMObject)), GetObjectSize() -
             sizeof(VMObject));
     return clone;
-}
-
-VMClass::VMClass(long numberOfFields) :
-        VMObject(numberOfFields + VMClassNumberOfFields) {
 }
 
 void VMClass::WalkObjects(walk_heap_fn walk) {

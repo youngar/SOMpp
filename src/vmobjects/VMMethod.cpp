@@ -47,6 +47,8 @@ const long VMMethod::VMMethodNumberOfFields = 7;
 
 VMMethod::VMMethod(long bcCount, long numberOfConstants, long nof) :
         VMInvokable(nof + VMMethodNumberOfFields) {
+    long additionalBytes = PADDED_SIZE(bcCount + numberOfConstants*sizeof(VMObject*));
+    objectSize = sizeof(*this) + additionalBytes;
 #ifdef UNSAFE_FRAME_OPTIMIZATION
     cachedFrame = nullptr;
 #endif

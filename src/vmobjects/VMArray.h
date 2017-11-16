@@ -33,7 +33,7 @@ class VMArray: public VMObject {
 public:
     typedef GCArray Stored;
     
-    VMArray(long size, long nof = 0);
+    VMArray(long size);
 
     virtual void WalkObjects(walk_heap_fn);
 

@@ -26,14 +26,18 @@
  THE SOFTWARE.
  */
 
+#include <cassert>
+
 #include "ObjectFormats.h"
 #include "VMObject.h"
 
 class VMInvokable: public VMObject {
 public:
     typedef GCInvokable Stored;
-    
-    VMInvokable(long nof = 0) : VMObject(nof + 2) {};
+
+    VMInvokable(long nof = 0) : VMObject(nof + 2) {
+        assert(objectSize == (sizeof(*this) + nof * sizeof(VMObject*)));
+    }
 
     virtual void      Invoke(Interpreter*, VMFrame*) = 0;
 
